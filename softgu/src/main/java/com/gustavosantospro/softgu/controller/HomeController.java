@@ -25,8 +25,5 @@ public class HomeController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @PostMapping("/criarUsuario")
-    public void createUser(@RequestBody Usuario usuario) {
-         userService.createUser(usuario);
-    }
+
 }

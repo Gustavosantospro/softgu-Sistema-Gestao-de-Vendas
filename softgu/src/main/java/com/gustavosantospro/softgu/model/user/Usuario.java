@@ -27,6 +27,12 @@ public class Usuario implements UserDetails {
     private String password;
     private Role role;
 
+    public Usuario(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
