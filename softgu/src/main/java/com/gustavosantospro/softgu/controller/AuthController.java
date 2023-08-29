@@ -10,18 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Controller
-@RequestMapping("/auth")
+@RequestMapping("auth")
 public class AuthController {
 
     @Autowired
     private UsuarioServiceimpl userService;
 
-
-    @GetMapping
-    public ResponseEntity getAllUsers(){
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
+    // fazer com q se tenha acesso mesmo com authenticated method no config
 
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody @Validated CreateUserDto data) {
@@ -31,5 +26,10 @@ public class AuthController {
     public ResponseEntity validateLogin(@RequestBody @Validated AuthenticationDto auth) {
         return ResponseEntity.ok(userService.validUser(auth));
     }
+
+    /*@GetMapping("/list")
+    public ResponseEntity getAllUsers(){
+        return ResponseEntity.ok(userService.getAllUsers());
+    }*/
 
 }

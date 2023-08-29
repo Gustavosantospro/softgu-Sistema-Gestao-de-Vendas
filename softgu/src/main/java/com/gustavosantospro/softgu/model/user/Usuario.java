@@ -1,21 +1,23 @@
 package com.gustavosantospro.softgu.model.user;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
+@Table
 @Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario implements UserDetails {
@@ -23,12 +25,12 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
+    private String login;
     private String password;
     private Role role;
 
-    public Usuario(String username, String password, Role role) {
-        this.username = username;
+    public Usuario(String login, String password, Role role) {
+        this.login = login;
         this.password = password;
         this.role = role;
     }
@@ -37,18 +39,18 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == Role.ADMIN) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+            return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER"));
         }
         else {
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            return List.of(new SimpleGrantedAuthority("USER"));
         }
     }
 
     @Override
-    public  String getUsername() {
-
-        return username;
+    public String getUsername() {
+        return this.login;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

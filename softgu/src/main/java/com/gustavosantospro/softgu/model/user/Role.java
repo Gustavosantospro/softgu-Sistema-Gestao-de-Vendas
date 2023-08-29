@@ -1,8 +1,9 @@
 package com.gustavosantospro.softgu.model.user;
 
+import lombok.Data;
 import lombok.Getter;
 
-@Getter
+
 public enum Role {
     ADMIN("ADMIN"),
     USER("USER");
@@ -11,5 +12,9 @@ public enum Role {
 
     Role(String role) {
         this.role = role;
+    }
+
+    public String getRole(){
+        return role;
     }
 }
